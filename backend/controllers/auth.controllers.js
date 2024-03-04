@@ -28,9 +28,11 @@ const register = async (req, res) => {
     const profilePicture = gender==="MALE" ? `https://avatar.iran.liara.run/public/boy?username=${username}`:`https://avatar.iran.liara.run/public/girl?username=${username}`
     const [{affectedRows}] = await db.query(`INSERT INTO user(username, password, gender, profile_picture)
                                 VALUES("${username}", "${passwordHash}", "${gender}", "${profilePicture}");`);
-    
-    if(affectedRows === 0) return res.status(404).send({message: 'User not found whith id: '+userId});
-    res.status(201).send({message: 'User created successfully'});
+
+    const [[user]] = await db.query(`SELECT * FROM user WHERE username="${username}"`);
+    const token = generateToken(username, user.user_id);
+    res.cookie("token", token, {maxAge: 1000 * 60 * 60 * 24 * 15});
+    res.status(201).send({username, id: user.user_id, ProfilePicture: user.profile_picture});
 };
 
 
