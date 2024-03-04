@@ -15,7 +15,7 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
     res.cookie("token", "", { maxAge: 0 });
-	res.status(200).json({ message: "Logged out successfully" });
+	res.sendStatus(200);
 };
 
 const register = async (req, res) => {
