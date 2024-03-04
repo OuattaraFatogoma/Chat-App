@@ -26,7 +26,6 @@ const useLogin = () => {
             if(data.message) throw new Error(data.message);
             localStorage.setItem("user", JSON.stringify(data));
             setUser(data);
-            navigate("/");
         } catch (error) {
             console.log(error.message);
             enqueueSnackbar(error.message, { variant: 'error' });
