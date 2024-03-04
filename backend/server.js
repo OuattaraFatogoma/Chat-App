@@ -2,7 +2,8 @@ require('dotenv').config();
 require('express-async-errors');
 const path = require('path');
 const express = require('express');
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 
 // imports routes
@@ -21,8 +22,10 @@ const db = require('./database/db');
 
 
 // middleware
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+
 
 // routes
 app.use('/api/v1/auth', authRoutes);
