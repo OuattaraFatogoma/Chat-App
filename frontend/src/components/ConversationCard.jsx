@@ -2,6 +2,7 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import { Avatar,Badge, Box, ListItem, ListItemAvatar, ListItemButton, ListItemText} from '@mui/material'
 import data from '../assets/Emojis.json'
+import { useGlobalContext } from '../context';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -33,17 +34,26 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 
-function ConversationCard({name, online}) {
+
+function ConversationCard({name, online, profilePicture, id}) {
+  const {selectConversation, setSelectConversation} = useGlobalContext();
+
+  const handleConversationClick = (e, id) => {
+    setSelectConversation(id)
+  }
   return (
     <ListItem disablePadding>
-        <ListItemButton>
+        <ListItemButton
+          selected = {selectConversation === id}
+          onClick={(e)=>handleConversationClick(e,id)}
+        >
         <ListItemAvatar>
           <StyledBadge
               overlap="circular"
               anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
               variant={ online && "dot"}
           >
-              <Avatar alt={name} src={"https://avatar.iran.liara.run/public/boy?username="+ name}/>
+              <Avatar alt={name} src={profilePicture}/>
           </StyledBadge>
         </ListItemAvatar>
         <ListItemText primary={name} />
