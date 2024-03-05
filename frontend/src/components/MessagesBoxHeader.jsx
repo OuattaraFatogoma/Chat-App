@@ -1,12 +1,14 @@
 import {Avatar, Box, Toolbar, Typography } from '@mui/material'
 import React from 'react'
 
-function MessagesBoxHeader({name, online}) {
+function MessagesBoxHeader({receiver, online}) {
+
+  const {username, profilePicture} = receiver;
   return (
     <Toolbar>
-      <Avatar alt={name} src={"https://avatar.iran.liara.run/public/boy?username="+ name}/>
+      <Avatar alt={username} src={profilePicture}/>
       <Box ml="1rem">
-        <Typography >{name}</Typography>
+        <Typography >{username}</Typography>
         <Typography  sx={{opacity:".5", fontSize:".7rem"}}>{online? "Connected":"Disconnected"}</Typography>
       </Box>
     </Toolbar>
