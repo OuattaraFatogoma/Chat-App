@@ -2,7 +2,6 @@ import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useGlobalContext } from '../context';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 
 const useLogin = () => {
@@ -10,7 +9,6 @@ const useLogin = () => {
     const {setUser, user} = useGlobalContext();
     const navigate = useNavigate();
 
-    if(user) navigate("/");
     const login = async (username, password) => {
         const success = handleLoginValidation(username, password);
         

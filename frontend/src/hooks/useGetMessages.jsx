@@ -8,7 +8,7 @@ const useGetMessages = () => {
     const {user} = useGlobalContext();
 
     const getMessages = async (user_id) =>{
-        console.log(user_id);
+        if(!user_id) return;
         setLoading(true);
         try {
             const response = await fetch("http://localhost:5000/api/v1/messages/"+user_id, {

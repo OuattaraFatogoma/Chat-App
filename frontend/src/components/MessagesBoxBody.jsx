@@ -22,7 +22,7 @@ function MessagesBoxBody({receiver, sender}) {
   return (
     <Box className="MessagesBoxBody">
       {
-        messages.map(message =>{
+        messages.map((message, index) =>{
           let isSender = false;
           let name = receiver.username;
           let profilePicture = receiver.profilePicture;
@@ -34,7 +34,7 @@ function MessagesBoxBody({receiver, sender}) {
           }
 
           return(
-            <MessageContent name={name} isSender={isSender} text={message.message_text} profilePicture={profilePicture}/>
+            <MessageContent key={index} name={name} isSender={isSender} text={message.message_text} profilePicture={profilePicture}/>
           )
         })
       }
