@@ -2,10 +2,12 @@ import { Box, Divider, FormControl, IconButton, InputAdornment, InputLabel, Outl
 import SendSharpIcon from '@mui/icons-material/SendSharp';
 import React, { useState } from 'react'
 import useSendMessage from '../hooks/useSendMessage';
+import useListenMessages from '../hooks/useListenMessages';
 
 function MessagesBoxFooter({receiver}) {
   const {sendMessage} = useSendMessage();
   const [text, setText] = useState("");
+  useListenMessages();
 
   const handleSendMessage = () => {
     if(!text) return;

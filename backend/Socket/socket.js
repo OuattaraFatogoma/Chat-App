@@ -13,20 +13,24 @@ const io = new Server(server, {
     }
 });
 
-let usersConnected = [];
+const getReceiverSocketId = (receiverId) => {
+    return userSocketsId[receiverId];
+}
+
+const userSocketsId = {};
 
 io.on("connection", (socket)=>{
     const userId = socket.handshake.query.user_id;
 
-    if(userId !== "undefined") usersConnected.push(userId);
+    if(userId !== "undefined") userSocketsId[userId] = socket.id;
 
-    io.emit("getOnlineUsers", usersConnected);
+    io.emit("getOnlineUsers", Object.keys(userSocketsId));
 
     socket.on("disconnect", ()=>{
-        usersConnected = usersConnected?.filter(userFilteredId => userFilteredId !== userId);
-        io.emit("getOnlineUsers", usersConnected);
+        delete userSocketsId[userId];
+        io.emit("getOnlineUsers", Object.keys(userSocketsId));
     })
 })
 
-module.exports = {app, server};
+module.exports = {app, server, io, getReceiverSocketId};
 

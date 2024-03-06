@@ -4,8 +4,7 @@ import { enqueueSnackbar } from 'notistack';
 
 const useGetMessages = () => {
     const [loading, setLoading] = useState(true);
-    const [messages, setMessages] = useState([]);
-    const {user} = useGlobalContext();
+    const { messages, setMessages} = useGlobalContext();
 
     const getMessages = async (user_id) =>{
         if(!user_id) return;

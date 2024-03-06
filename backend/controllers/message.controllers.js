@@ -1,4 +1,6 @@
 const db = require('../database/db');
+const { io, getReceiverSocketId} = require('../Socket/socket');
+
 
 const sendMessage = async (req, res) => {
     const senderId = req.userId;
@@ -28,7 +30,12 @@ const sendMessage = async (req, res) => {
                                 VALUES ("${senderId}","${conversation.conversation_id}","${text}");`);
     
     if(affectedRows === 0) return res.status(500).send({message: 'Something went wrong'});
-    res.json("OK");
+
+    // socket implementation
+    const [newMessage] = await db.query(`SELECT * FROM message WHERE conversation_Id =${conversation.conversation_id} ORDER BY created_at DESC LIMIT 1`);
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    if(receiverSocketId) io.to(receiverSocketId).emit("newMessage", newMessage);
+    res.json(newMessage);
 };
 
 const getMessages = async (req, res) => {

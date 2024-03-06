@@ -9,6 +9,8 @@ export const ContextProvider = ({children}) => {
     const [selectConversation, setSelectConversation] = useState(0);
     const [socket, setSocket] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
+    const [messages, setMessages] = useState([]);
+
 
     useEffect(()=>{
         if(user){
@@ -23,7 +25,6 @@ export const ContextProvider = ({children}) => {
 
             socket.on("getOnlineUsers", (data) =>{
                 setOnlineUsers(data);
-                console.log(data);
             })
 
         }else{
@@ -41,6 +42,7 @@ export const ContextProvider = ({children}) => {
                 user, setUser, 
                 selectConversation, setSelectConversation,
                 socket, onlineUsers,
+                messages, setMessages
             }}
         >
             {children}
