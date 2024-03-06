@@ -2,6 +2,7 @@ import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useGlobalContext } from '../context';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 const useLogin = () => {
@@ -21,7 +22,10 @@ const useLogin = () => {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({username, password}),
+                mode: 'cors',
+                credentials: 'include',
             });
+
             const data = await response.json();
             if(data.message) throw new Error(data.message);
             localStorage.setItem("user", JSON.stringify(data));
