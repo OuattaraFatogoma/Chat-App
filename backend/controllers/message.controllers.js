@@ -28,13 +28,14 @@ const sendMessage = async (req, res) => {
                                 VALUES ("${senderId}","${conversation.conversation_id}","${text}");`);
     
     if(affectedRows === 0) return res.status(500).send({message: 'Something went wrong'});
-    res.send({message: 'Message was successfully sent'});
+    res.json("OK");
 };
 
 const getMessages = async (req, res) => {
     const senderId = req.userId;
-    const {id: userToChatId} = req.params;
-    
+    let {id: userToChatId} = req.params;
+    userToChatId = parseInt(userToChatId);
+
     // verify that the receiver and the sender exist
     const [[sender]] = await db.query(`SELECT username FROM user where user_id =${senderId}`);
     const [[userToChat]] = await db.query(`SELECT username FROM user where user_id =${userToChatId}`);
@@ -44,7 +45,6 @@ const getMessages = async (req, res) => {
     const conversationName = `${sender.username}_${userToChat.username}`;
     let [[conversation]] = await db.query(`SELECT * FROM conversation 
                                 WHERE conversation_name = "${conversationName}" OR conversation_name = "${userToChat.username}_${sender.username}"`)
-    
     if(!conversation) return res.status(200).send([]);
     const [messages] = await db.query(`SELECT * FROM message WHERE conversation_Id =${conversation.conversation_id}`);
     res.status(200).json(messages);

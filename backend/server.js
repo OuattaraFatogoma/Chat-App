@@ -22,12 +22,17 @@ const db = require('./database/db');
 
 
 // middleware
-app.use(cors());
+// app.options('*', cors());
+app.use(cors({
+    credentials: true,
+    origin: "http://localhost:3000",
+    credentials: true,
+}));
 app.use(express.json());
 app.use(cookieParser());
 
 
-// routes
+// routes 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/messages', messageRoutes);
