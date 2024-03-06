@@ -3,7 +3,7 @@ import { useGlobalContext } from '../context';
 
 
 const useLogout = () => {
-    const {setUser} = useGlobalContext();
+    const {setUser, setSelectConversation} = useGlobalContext();
 
     const logout = async () => {
         try {
@@ -13,6 +13,7 @@ const useLogout = () => {
             
             localStorage.removeItem("user");
             setUser(null);
+            setSelectConversation(0);
         } catch (error) {
             console.log(error.message);
             enqueueSnackbar(error.message, { variant: 'error' });
