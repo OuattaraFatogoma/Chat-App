@@ -96,7 +96,7 @@ a:hover{
 
 .MessagesBoxBody{
   overflow: scroll;
-  height: 80%;
+  height: 80vh;
 }
 .MessagesBoxFooter{
   width: 100%;

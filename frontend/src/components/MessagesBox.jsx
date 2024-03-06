@@ -10,6 +10,7 @@ import useGetReceiver from '../hooks/useGetReceiver';
 function MessagesBox() {
   const {selectConversation, user} = useGlobalContext();
   const {getReceiver, loading, receiver} = useGetReceiver();
+  const {onlineUsers} = useGlobalContext();
 
   useEffect(()=>{
     if(selectConversation===0) return;
@@ -20,7 +21,7 @@ function MessagesBox() {
 
   return (
     <div className='messageBox'>
-      <MessagesBoxHeader receiver={receiver} online={receiver.gender==="MALE"}/>
+      <MessagesBoxHeader receiver={receiver} online={onlineUsers.find(id => id==receiver.user_id)}/>
       <Divider/>
       <MessagesBoxBody receiver={receiver} sender={user}/>
       <MessagesBoxFooter receiver={receiver}/>

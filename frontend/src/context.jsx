@@ -8,18 +8,23 @@ export const ContextProvider = ({children}) => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
     const [selectConversation, setSelectConversation] = useState(0);
     const [socket, setSocket] = useState(null);
-
+    const [onlineUsers, setOnlineUsers] = useState([]);
 
     useEffect(()=>{
         if(user){
-            console.log(user);
+
             const socket = io("http://localhost:5000",{
                 query: {
                   user_id: user.id,
                 }
             });
-            
+
             setSocket(socket);
+
+            socket.on("getOnlineUsers", (data) =>{
+                setOnlineUsers(data);
+                console.log(data);
+            })
 
         }else{
             if(socket){
@@ -29,9 +34,15 @@ export const ContextProvider = ({children}) => {
         }
     }, [user])
 
-
+    
     return(
-        <ContextApi.Provider value={{user, setUser, selectConversation, setSelectConversation}}>
+        <ContextApi.Provider 
+        value={{
+                user, setUser, 
+                selectConversation, setSelectConversation,
+                socket, onlineUsers,
+            }}
+        >
             {children}
         </ContextApi.Provider>
     )
