@@ -22,7 +22,7 @@ function MessagesBox() {
     <div className='messageBox'>
       <MessagesBoxHeader receiver={receiver} online={receiver.gender==="MALE"}/>
       <Divider/>
-      <MessagesBoxBody/>
+      <MessagesBoxBody receiver={receiver} sender={user}/>
       <MessagesBoxFooter/>
     </div>
   )
