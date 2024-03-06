@@ -16,7 +16,7 @@ const errorHandlerMiddleware = require('./middleware/errorHandler');
 const routeNotFoundMiddleware = require('./middleware/routeNotFound');
 
 // constants
-const app = express();
+const {app,server }= require('./Socket/socket');
 const port = process.env.PORT || 5000;
 const db = require('./database/db');
 
@@ -44,7 +44,7 @@ const start = async () => {
     try {
         await db.query("SELECT 1");
         console.log("db connected successfully");
-        app.listen(port, console.log(`server is listening on port ${port}`));
+        server.listen(port, console.log(`server is listening on port ${port}`));
     } catch (error) {
         console.error(error);
     }
