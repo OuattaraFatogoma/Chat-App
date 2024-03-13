@@ -18,6 +18,8 @@ function SidebarBody() {
       setConversationSearch(conversations.filter(conversation => conversation.username.toLowerCase().includes(searchTerm.toLowerCase())));
     }
     else setConversationSearch(conversations);
+    console.log(conversationSearch)
+    
   }, [searchTerm, conversations])
 
   if(loading) return "Loading...";

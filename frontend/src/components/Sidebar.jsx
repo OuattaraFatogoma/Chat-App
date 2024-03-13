@@ -16,7 +16,6 @@ function Sidebar() {
       if(selectConversation===0) setShowSidebar(true);
       if(selectConversation!==0) setShowSidebar(false);
     }
-    console.log(sidebar.current.offsetWidth);
   }, [selectConversation])
 
   return (
