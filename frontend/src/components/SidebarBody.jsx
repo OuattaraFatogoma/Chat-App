@@ -16,10 +16,9 @@ function SidebarBody() {
   useEffect(() => {
     if(searchTerm) {
       setConversationSearch(conversations.filter(conversation => conversation.username.toLowerCase().includes(searchTerm.toLowerCase())));
-      console.log(conversationSearch, searchTerm);
     }
-    else setConversationSearch(conversations)
-  }, [searchTerm])
+    else setConversationSearch(conversations);
+  }, [searchTerm, conversations])
 
   if(loading) return "Loading...";
 

@@ -32,6 +32,8 @@ a:hover{
 ::-webkit-scrollbar-track:hover{
   background-color: #141b2d;
 }
+
+
 /* Home Page */
 
 .homePage, .landing{
@@ -52,6 +54,10 @@ a:hover{
   flex: 1;
   margin-left: 300px;
   position: relative;
+}
+
+.defaultMessageBox{
+  margin-left: 300px;
 }
 
 .bubble {
@@ -105,6 +111,11 @@ a:hover{
   left: 0;
 }
 
+@media only screen and (max-width:600px) {
+  .messageBox, .defaultMessageBox{
+    margin-left: 0;
+  }
+}
 /* register / Login */
 .landing{
   background: url(./assets/backgroung.jpg) no-repeat center center;

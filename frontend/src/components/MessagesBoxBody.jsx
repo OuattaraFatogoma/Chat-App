@@ -31,7 +31,6 @@ function MessagesBoxBody({receiver, sender}) {
     <Box className="MessagesBoxBody" ref={body}>
       {
         messages.map((message, index) =>{
-          console.log(message)
           let isSender = false;
           let name = receiver.username;
           let profilePicture = receiver.profilePicture;
