@@ -10,7 +10,7 @@ export const ContextProvider = ({children}) => {
     const [socket, setSocket] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
     const [messages, setMessages] = useState([]);
-
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(()=>{
         if(user){
@@ -42,7 +42,8 @@ export const ContextProvider = ({children}) => {
                 user, setUser, 
                 selectConversation, setSelectConversation,
                 socket, onlineUsers,
-                messages, setMessages
+                messages, setMessages,
+                searchTerm, setSearchTerm
             }}
         >
             {children}

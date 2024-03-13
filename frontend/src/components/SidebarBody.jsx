@@ -4,14 +4,22 @@ import ConversationCard from './ConversationCard';
 import useGetConversation from '../hooks/useGetConversation';
 import { useGlobalContext } from '../context';
 
-
 function SidebarBody() {
   const {conversations, loading, getConversation} = useGetConversation();
-  const {onlineUsers} = useGlobalContext();
-  
+  const {onlineUsers, searchTerm} = useGlobalContext();
+  const [conversationSearch, setConversationSearch] = useState([]);
+
   useEffect(()=>{
     getConversation();
   }, []);
+
+  useEffect(() => {
+    if(searchTerm) {
+      setConversationSearch(conversations.filter(conversation => conversation.username.toLowerCase().includes(searchTerm.toLowerCase())));
+      console.log(conversationSearch, searchTerm);
+    }
+    else setConversationSearch(conversations)
+  }, [searchTerm])
 
   if(loading) return "Loading...";
 
@@ -19,7 +27,7 @@ function SidebarBody() {
     <div>
       <List>
         {
-          conversations.map( (conversation,index) => {
+          conversationSearch.map( (conversation,index) => {
             const {username, profilePicture, user_id} = conversation;
             return(
             <React.Fragment key={index}>
