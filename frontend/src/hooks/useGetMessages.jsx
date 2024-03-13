@@ -10,7 +10,7 @@ const useGetMessages = () => {
         if(!user_id) return;
         setLoading(true);
         try {
-            const response = await fetch("http://localhost:5000/api/v1/messages/"+user_id, {
+            const response = await fetch("https://instachat-4s7y.onrender.com/api/v1/messages/"+user_id, {
                 mode: 'cors',
                 credentials: 'include',
             });

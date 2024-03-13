@@ -15,7 +15,7 @@ export const ContextProvider = ({children}) => {
     useEffect(()=>{
         if(user){
 
-            const socket = io("http://localhost:5000",{
+            const socket = io("https://instachat-4s7y.onrender.com",{
                 query: {
                   user_id: user.id,
                 }
